@@ -1,4 +1,4 @@
-CC			=	cc -I$(INCLUDE) #-Wall -Wextra -Werror
+CC			=	cc -I$(INCLUDE) -g3 #-Wall -Wextra -Werror
 
 NAME		=	so_long
 INCLUDE		=	include
@@ -15,7 +15,7 @@ EXEC		= test
 
 all:		lib mlx $(NAME)
 
-bonus:		lib mlx $(NAME)
+#bonus:		lib mlx $(NAME)
 
 mlx:
 			make -C $(MINILIBX)
