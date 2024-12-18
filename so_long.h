@@ -6,13 +6,30 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/13 22:40:00 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:53:14 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include <mlx.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <X11/keysym.h>
+
+# define SIZE 64
+
+typedef struct s_struct
+{
+	int		pixels;
+	void	*mlx;
+	void	*win;
+
+	void	*player;
+	int		pos_x;
+	int		pos_y;
+
+}	t_struct;
 
 #endif

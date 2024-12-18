@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 18:42:04 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/13 23:17:26 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/18 03:07:39 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main(void)
 	if (!window)
 		return (1);
 	mlx_hook(window, 17, 0, close, NULL);
+	mlx_string_put(mlx, window, 763, 150, 0xFFFFF, "Testing...");
 	while (j <= 1000)
 	{
 		i = 300;

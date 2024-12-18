@@ -1,12 +1,17 @@
-SRCS		=	test.c
+CC			=	cc -I$(INCLUDE) #-Wall -Wextra -Werror
+
+NAME		=	so_long
 INCLUDE		=	include
+SRCS		=	so_long.c
+OBJS		=	$(SRCS:%.c=$(OBJDIR)%.o)
 MINILIBX	=	minilibx-linux
 OBJDIR		=	objs/
-OBJS		=	$(SRCS:%.c=$(OBJDIR)%.o)
-CC			=	cc -I$(INCLUDE) -Wall -Wextra -Werror
-RM			=	rm -f
+
 AR			=	ar rcs
-NAME		=	so_long
+RM			=	rm -f
+
+TEST		= test.c
+EXEC		= test
 
 all:		lib mlx $(NAME)
 
@@ -16,6 +21,7 @@ mlx:
 			make -C $(MINILIBX)
 
 $(NAME):    $(OBJS)
+#			make -C $(LIBFT)
 			make -C $(MINILIBX)
 			$(CC) $(OBJS) -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
 
@@ -30,8 +36,12 @@ clean:
 
 fclean:		clean
 			$(RM) $(NAME)
+			$(RM) $(EXEC)
 			make -C $(MINILIBX) clean
 
 re:			fclean all
 
-.PHONY:        all lib clean fclean re bonus mlx
+test:		mlx $(TEST)
+			$(CC) $(TEST) -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(EXEC)
+
+.PHONY:        all lib clean fclean re bonus mlx test
