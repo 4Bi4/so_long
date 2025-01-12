@@ -6,12 +6,12 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 18:42:04 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/18 03:07:39 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:29:35 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include "so_long.h"
+#include <stdlib.h>
 
 int	close(void *p)
 {
