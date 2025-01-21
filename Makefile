@@ -1,4 +1,4 @@
-CC			=	cc -I$(INCLUDE) #-g3 #-Wall -Wextra -Werror
+CC			=	cc -I$(INCLUDE) -g3 #-Wall -Wextra -Werror
 
 NAME		=	so_long
 INCLUDE		=	include

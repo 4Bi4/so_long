@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/22 15:23:18 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:12:01 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,22 @@ typedef struct s_struct
 	int		pos_y;
 	int		count;
 
+	int		points;
+
+	int		map_x;
+	int		map_y;
+	int		exit_x;
+	int		exit_y;
 	char	**map;
 	void	*floor;
 	void	*wall;
 	void	*exit;
+	void	*coin;
 
 }	t_struct;
 
 char	**ft_split(char const *s, char c);
-void	read_map(int fd, t_struct *vars);
+void	map_meter(int fd, t_struct *vars);
+void	read_map(t_struct *vars);
 
 #endif
