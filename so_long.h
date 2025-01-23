@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/19 22:12:01 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:26:42 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <X11/keysym.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 # define SIZE 64
 
@@ -31,7 +32,7 @@ typedef struct s_struct
 	void	*player;
 	int		pos_x;
 	int		pos_y;
-	int		count;
+	size_t	count;
 
 	int		points;
 
@@ -39,10 +40,12 @@ typedef struct s_struct
 	int		map_y;
 	int		exit_x;
 	int		exit_y;
+	bool	exit;
 	char	**map;
 	void	*floor;
 	void	*wall;
-	void	*exit;
+	void	*exit_no;
+	void	*exit_yes;
 	void	*coin;
 
 }	t_struct;

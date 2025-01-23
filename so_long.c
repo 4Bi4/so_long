@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/19 23:10:38 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:01:06 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 int	close_window(t_struct *vars)
 {
-	//función de liberar memoria y tal :p
+	int	i;
+
+	i = 0;	
+	while (vars->map[i])
+	{
+		free(vars->map[i]);
+		i++;
+	}
+	free(vars->map);
 	exit(0);
+	
 }
 
 int	init_process(t_struct *vars)
@@ -32,9 +41,11 @@ int	init_process(t_struct *vars)
 	vars->points = 0;
 	vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1R.xpm", &vars->resolution, &vars->resolution);
 	vars->floor = mlx_xpm_file_to_image(vars->mlx, "sprites/floor.xpm", &vars->resolution, &vars->resolution);
-	vars->exit = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-no.xpm", &vars->resolution, &vars->resolution);
+	vars->exit_no = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-no.xpm", &vars->resolution, &vars->resolution);
+	vars->exit_yes = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-yes.xpm", &vars->resolution, &vars->resolution);
 	vars->wall = mlx_xpm_file_to_image(vars->mlx, "sprites/wall.xpm", &vars->resolution, &vars->resolution);
 	vars->coin = mlx_xpm_file_to_image(vars->mlx, "sprites/coin.xpm", &vars->resolution, &vars->resolution);
+	vars->exit = false;
 	return (0);
 }
 
@@ -47,15 +58,28 @@ void	move_player(t_struct *vars, int incr_y, int incr_x)
 {
 	if (vars->map[((vars->pos_y + incr_y)/SIZE)][((vars->pos_x + incr_x)/SIZE)] != '1')
 	{
+		if (vars->map[((vars->pos_y + incr_y)/SIZE)][((vars->pos_x + incr_x)/SIZE)] == 'E')
+		{
+			if(vars->points == 0)
+			{
+				printf("✅🏆¡¡¡OLE OLE LO CARACOLE GANASTEEEE!!!🏆✅\n");
+				close_window(vars);
+			}
+			else
+				return ;
+		}
 		if (vars->map[((vars->pos_y + incr_y)/SIZE)][((vars->pos_x + incr_x)/SIZE)] == 'C')
 		{
 			vars->points -= 1;
 			printf("COINS LEFT🪙:%i\n", vars->points);
+			vars->map[((vars->pos_y + incr_y)/SIZE)][((vars->pos_x + incr_x)/SIZE)] = '0';
 		}
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->floor, vars->pos_x, vars->pos_y);
 		vars->pos_x += incr_x;
 		vars->pos_y += incr_y;
 		render_image(vars);
+		vars->count += 1;
+		printf("counter: %zu\n", vars->count);
 	}
 	else
 		printf("BONK!🔨\n");
@@ -63,36 +87,28 @@ void	move_player(t_struct *vars, int incr_y, int incr_x)
 
 int	key_hook(int keycode, t_struct *vars)
 {
-	if (vars->points == 0 && (vars->pos_x == vars->exit_x) && (vars->pos_y == vars->exit_y))
-	{
-		printf("🏆!!!YOU WON!!!🏆\n");
-		close_window(vars);
-	}
+	if (vars->points == 0 && vars->exit == false)
+		{
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_yes, vars->exit_x, vars->exit_y);
+			printf("THE GATS HAVE BEEN OPENED!🟣\n");
+			vars->exit = true;
+		}
 	if (keycode == XK_Escape)
 		close_window(vars);
 	if (keycode == XK_d)
 	{
 		vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1R.xpm", &vars->resolution, &vars->resolution);
 		move_player(vars, 0, SIZE);
-		vars->count += 1;
 	}
 	if (keycode == XK_a)
 	{
 		vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1L.xpm", &vars->resolution, &vars->resolution);
 		move_player(vars, 0, -SIZE);
-		vars->count += 1;
 	}
 	if (keycode == XK_s)
-	{
 		move_player(vars, SIZE, 0);
-		vars->count += 1;
-	}
 	if (keycode == XK_w)
-	{
 		move_player(vars, -SIZE, 0);
-		vars->count += 1;
-	}
-	printf("counter: %d\n", vars->count);
 	return (0);
 }
 
@@ -104,11 +120,11 @@ int	main(int argc, char **argv)
 	int fd;
 
 	if (argc != 2)
-		return(printf("![ERROR]! Enter the map route as an argument\n"));
+		return(printf("¡[ERROR]! Enter the map route as an argument\n"));
 	j = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd <= 0)
-		return(printf("![ERROR]! Failed to load map :(\n"));
+		return(printf("¡[ERROR]! Failed to load map :(\n"));
 	map_meter(fd, &vars);
 	init_process(&vars);
 	read_map(&vars);

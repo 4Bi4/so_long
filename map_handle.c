@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/19 22:14:01 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:59:44 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	read_map(t_struct *vars)
 			{
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->player, (i * SIZE), (j * SIZE));
 				vars->pos_x = i * SIZE;
-				vars->pos_y = i * SIZE;
+				vars->pos_y = j * SIZE;
 			}
 			if (vars->map[j][i] == 'C')
 			{
@@ -62,9 +62,9 @@ void	read_map(t_struct *vars)
 			}
 			if (vars->map[j][i] == 'E')
 			{
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->exit, (i * SIZE), (j * SIZE));
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_no, (i * SIZE), (j * SIZE));
 				vars->exit_x = i * SIZE;
-				vars->exit_y = i * SIZE;
+				vars->exit_y = j * SIZE;
 			}
 			i++;
 		}

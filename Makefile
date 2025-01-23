@@ -21,7 +21,6 @@ mlx:
 			make -C $(MINILIBX)
 
 $(NAME):    $(OBJS)
-#			make -C $(LIBFT)
 			make -C $(MINILIBX)
 			$(CC) $(OBJS) -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
 
