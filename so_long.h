@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/23 17:26:42 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:41:55 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_struct
 }	t_struct;
 
 char	**ft_split(char const *s, char c);
+
+int		map_check(t_struct *vars);
+
 void	map_meter(int fd, t_struct *vars);
 void	read_map(t_struct *vars);
 

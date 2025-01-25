@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/23 16:59:44 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/25 18:31:07 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	map_meter(int fd, t_struct *vars)
 		i++;
 	vars->map_x = i * SIZE;
 	vars->map_y = j * SIZE;
-	printf("Map size:%ix%i\n", vars->map_x, vars->map_y);
 }
 
 void	read_map(t_struct *vars)
@@ -72,3 +71,37 @@ void	read_map(t_struct *vars)
 	}
 	printf("TOTAL COINS🪙: %i\n", vars->points);
 }
+int	is_square(t_struct *vars)
+{
+	int	i;
+	int	j;
+	int	max_i;
+
+	j = 0;
+	max_i = 0;
+	while (vars->map[j])
+	{
+		i = 0;
+		while (vars->map[j][i])
+			i++;
+		if (i != max_i && max_i > 0)
+			return (-1);
+		max_i = i;
+		j++;
+	}
+}
+
+int	map_check(t_struct *vars)
+{
+	int	error;
+	
+	error = is_square(vars);
+	if (error != 0)
+	{
+		printf("¡[ERROR]! Map is not Rectangular\n");
+		return (-1);
+	}
+		printf("Map is good 👍\n🕒Loading...\n");
+		return (0);
+}
+
