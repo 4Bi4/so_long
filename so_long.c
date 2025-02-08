@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/25 17:59:01 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/01/25 20:00:42 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	key_hook(int keycode, t_struct *vars)
 	if (vars->points == 0 && vars->exit == false)
 		{
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_yes, vars->exit_x, vars->exit_y);
-			printf("THE GATS HAVE BEEN OPENED!🟣\n");
+			printf("THE GATES HAVE BEEN OPENED!🟣\n");
 			vars->exit = true;
 		}
 	if (keycode == XK_Escape)

@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/25 18:31:07 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:45:12 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,27 @@ int	is_square(t_struct *vars)
 	}
 }
 
+int	wall_check(t_struct *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < (vars->map_x / SIZE))
+	{
+		if (vars->map[0][i] != '1' || vars->map[(vars->map_y / SIZE) - 1][i] != '1')
+			return (-1);
+		i++;
+	}
+	i = 0;
+	while (i < (vars->map_y / SIZE))
+	{
+		if (vars->map[i][0] != '1' || vars->map[i][(vars->map_x / SIZE) - 1] != '1')
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 int	map_check(t_struct *vars)
 {
 	int	error;
@@ -99,6 +120,12 @@ int	map_check(t_struct *vars)
 	if (error != 0)
 	{
 		printf("¡[ERROR]! Map is not Rectangular\n");
+		return (-1);
+	}
+	error = wall_check(vars);
+	if (error != 0)
+	{
+		printf("¡[ERROR]! Map is not Surrounded by walls\n");
 		return (-1);
 	}
 		printf("Map is good 👍\n🕒Loading...\n");
