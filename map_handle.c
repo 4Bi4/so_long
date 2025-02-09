@@ -6,18 +6,18 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/05 18:45:12 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:17:13 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	map_meter(int fd, t_struct *vars)
+void map_meter(int fd, t_struct *vars)
 {
-	char	*buff;
-	int	i;
-	int	j;
-	
+	char *buff;
+	int i;
+	int j;
+
 	i = 0;
 	j = 0;
 	buff = malloc(sizeof(char) * 1024);
@@ -32,11 +32,15 @@ void	map_meter(int fd, t_struct *vars)
 	vars->map_y = j * SIZE;
 }
 
-void	read_map(t_struct *vars)
+int read_map(t_struct *vars)
 {
-	int		i;
-	int		j;
-	
+	int player;
+	int exit;
+	int i;
+	int j;
+
+	player = 0;
+	exit = 0;
 	i = 0;
 	j = 0;
 	while (vars->map[j])
@@ -53,6 +57,7 @@ void	read_map(t_struct *vars)
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->player, (i * SIZE), (j * SIZE));
 				vars->pos_x = i * SIZE;
 				vars->pos_y = j * SIZE;
+				player++;
 			}
 			if (vars->map[j][i] == 'C')
 			{
@@ -64,18 +69,23 @@ void	read_map(t_struct *vars)
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_no, (i * SIZE), (j * SIZE));
 				vars->exit_x = i * SIZE;
 				vars->exit_y = j * SIZE;
+				exit++;
 			}
 			i++;
 		}
 		j++;
 	}
+	if (player != 1 || exit != 1)
+		return (-1);
 	printf("TOTAL COINS🪙: %i\n", vars->points);
+	return (0);
 }
-int	is_square(t_struct *vars)
+
+int is_square(t_struct *vars)
 {
-	int	i;
-	int	j;
-	int	max_i;
+	int i;
+	int j;
+	int max_i;
 
 	j = 0;
 	max_i = 0;
@@ -91,9 +101,9 @@ int	is_square(t_struct *vars)
 	}
 }
 
-int	wall_check(t_struct *vars)
+int wall_check(t_struct *vars)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < (vars->map_x / SIZE))
@@ -112,10 +122,10 @@ int	wall_check(t_struct *vars)
 	return (0);
 }
 
-int	map_check(t_struct *vars)
+int map_check(t_struct *vars)
 {
-	int	error;
-	
+	int error;
+
 	error = is_square(vars);
 	if (error != 0)
 	{
@@ -128,7 +138,12 @@ int	map_check(t_struct *vars)
 		printf("¡[ERROR]! Map is not Surrounded by walls\n");
 		return (-1);
 	}
-		printf("Map is good 👍\n🕒Loading...\n");
-		return (0);
+	error = read_map(vars);
+	if (error != 0)
+	{
+		printf("¡[ERROR DE LA MUERTE]! Wrong number of Player/s or Exit/s💀💀\n");
+		return (-1);
+	}
+	printf("Map is good 👍\n🕒Loading...\n");
+	return (0);
 }
-

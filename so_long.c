@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/01/25 20:00:42 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:13:01 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,10 @@ int	main(int argc, char **argv)
 	if (fd <= 0)
 		return(printf("¡[ERROR]! Failed to load map :(\n"));
 	map_meter(fd, &vars);
-	error = map_check(&vars);
 	init_process(&vars);
+	error = map_check(&vars);
 	if (error != 0)
 		close_window(&vars);
-	read_map(&vars);
 	mlx_hook(vars.win, 17, 0, close_window, NULL);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
