@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/09 23:04:44 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:37:15 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,11 @@ void	key_hook(int keycode, t_struct *vars)
 int	main(int argc, char **argv)
 {
 	t_struct	vars;
-	int			i;
-	int			j;
 	int			fd;
 	int			error;
 
 	if (argc != 2)
 		return (printf("¡[ERROR]! Enter the map route as an argument\n"));
-	j = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd <= 0)
 		return (printf("¡[ERROR]! Failed to load map :(\n"));

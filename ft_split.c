@@ -6,12 +6,21 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:52:13 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/09 22:56:59 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:34:15 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
+#include "so_long.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 void	ft_freeall(char **s)
 {
@@ -26,7 +35,7 @@ void	ft_freeall(char **s)
 	free(s);
 }
 
-static int	ft_nword(char const *s, char c)
+static int	ft_nword(const char *s, char c)
 {
 	int	i;
 	int	n;
@@ -63,7 +72,7 @@ static char	*ft_getword(const char *s, char c)
 	return (buffer);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	char	**str;
 	int		i;
@@ -81,7 +90,7 @@ char	**ft_split(char const *s, char c)
 			str[j] = ft_getword(s + i, c);
 			if (!str[j])
 				return (ft_freeall(str), NULL);
-			i = i + strlen(str[j]);
+			i = i + ft_strlen(str[j]);
 			j++;
 		}
 		else
