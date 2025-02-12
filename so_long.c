@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/12 15:37:15 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:43:54 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	move_player(t_struct *vars, int incr_y, int incr_x)
 	new_y = (vars->pos_y + incr_y) / SIZE;
 	new_x = (vars->pos_x + incr_x) / SIZE;
 	cell = vars->map[new_y][new_x];
-	if (cell == '1')
-		return ;
 	if (cell == 'E' && vars->points == 0)
 		close_window(vars);
+	if (cell == '1' || cell == 'E')
+		return ;
 	if (cell == 'C')
 	{
 		vars->points--;
@@ -122,6 +122,7 @@ int	main(int argc, char **argv)
 	if (fd <= 0)
 		return (printf("¡[ERROR]! Failed to load map :(\n"));
 	map_meter(fd, &vars);
+	close(fd);
 	init_process(&vars);
 	error = map_check(&vars);
 	if (error != 0)

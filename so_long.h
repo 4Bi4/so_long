@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/09 22:55:33 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:02:00 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 
 # define SIZE 64
+# define BUFFER 1024
 
 typedef struct s_struct
 {
