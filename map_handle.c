@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/09 22:54:48 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:41:12 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	is_square(t_struct *vars)
 		max_i = i;
 		j++;
 	}
+	return (0);
 }
 
 int	wall_check(t_struct *vars)
