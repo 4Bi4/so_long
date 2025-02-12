@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 18:42:04 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/22 15:29:35 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:33:06 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int	close(void *p)
 	exit(0);
 }
 
-int main(void)
+int	main(void)
 {
 	void	*mlx;
 	void	*window;
-	size_t	i = 300;
-	size_t	j = 600;
+	size_t	i;
+	size_t	j;
 
+	i = 300;
+	j = 600;
 	mlx = mlx_init();
 	if (!mlx)
 		return (1);
@@ -37,7 +39,7 @@ int main(void)
 	while (j <= 1000)
 	{
 		i = 300;
-		while(i <= 600)
+		while (i <= 600)
 			mlx_pixel_put(mlx, window, j, i++, 0xAB7BA4);
 		j++;
 	}

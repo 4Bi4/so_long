@@ -6,20 +6,20 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/08 17:10:08 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:55:33 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include <X11/keysym.h>
+# include <fcntl.h>
 # include <mlx.h>
+# include <stdbool.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
-# include <X11/keysym.h>
-# include <stdio.h>
-# include <stdbool.h>
 
 # define SIZE 64
 
@@ -48,13 +48,16 @@ typedef struct s_struct
 	void	*exit_yes;
 	void	*coin;
 
-}	t_struct;
+	int		i;
+	int		j;
 
-char	**ft_split(char const *s, char c);
+}			t_struct;
 
-int		map_check(t_struct *vars);
-int		read_map(t_struct *vars);
+char		**ft_split(char const *s, char c);
 
-void	map_meter(int fd, t_struct *vars);
+int			map_check(t_struct *vars);
+int			read_map(t_struct *vars);
+
+void		map_meter(int fd, t_struct *vars);
 
 #endif

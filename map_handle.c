@@ -6,17 +6,17 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/08 17:17:13 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:54:48 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void map_meter(int fd, t_struct *vars)
+void	map_meter(int fd, t_struct *vars)
 {
-	char *buff;
-	int i;
-	int j;
+	char	*buff;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -32,60 +32,11 @@ void map_meter(int fd, t_struct *vars)
 	vars->map_y = j * SIZE;
 }
 
-int read_map(t_struct *vars)
+int	is_square(t_struct *vars)
 {
-	int player;
-	int exit;
-	int i;
-	int j;
-
-	player = 0;
-	exit = 0;
-	i = 0;
-	j = 0;
-	while (vars->map[j])
-	{
-		i = 0;
-		while (vars->map[j][i])
-		{
-			if (vars->map[j][i] == '0')
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->floor, (i * SIZE), (j * SIZE));
-			if (vars->map[j][i] == '1')
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->wall, (i * SIZE), (j * SIZE));
-			if (vars->map[j][i] == 'P')
-			{
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->player, (i * SIZE), (j * SIZE));
-				vars->pos_x = i * SIZE;
-				vars->pos_y = j * SIZE;
-				player++;
-			}
-			if (vars->map[j][i] == 'C')
-			{
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->coin, (i * SIZE), (j * SIZE));
-				vars->points += 1;
-			}
-			if (vars->map[j][i] == 'E')
-			{
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_no, (i * SIZE), (j * SIZE));
-				vars->exit_x = i * SIZE;
-				vars->exit_y = j * SIZE;
-				exit++;
-			}
-			i++;
-		}
-		j++;
-	}
-	if (player != 1 || exit != 1)
-		return (-1);
-	printf("TOTAL COINS🪙: %i\n", vars->points);
-	return (0);
-}
-
-int is_square(t_struct *vars)
-{
-	int i;
-	int j;
-	int max_i;
+	int	i;
+	int	j;
+	int	max_i;
 
 	j = 0;
 	max_i = 0;
@@ -101,30 +52,32 @@ int is_square(t_struct *vars)
 	}
 }
 
-int wall_check(t_struct *vars)
+int	wall_check(t_struct *vars)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < (vars->map_x / SIZE))
 	{
-		if (vars->map[0][i] != '1' || vars->map[(vars->map_y / SIZE) - 1][i] != '1')
+		if (vars->map[0][i] != '1' || vars->map[(vars->map_y / SIZE)
+			- 1][i] != '1')
 			return (-1);
 		i++;
 	}
 	i = 0;
 	while (i < (vars->map_y / SIZE))
 	{
-		if (vars->map[i][0] != '1' || vars->map[i][(vars->map_x / SIZE) - 1] != '1')
+		if (vars->map[i][0] != '1' || vars->map[i][(vars->map_x / SIZE)
+			- 1] != '1')
 			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-int map_check(t_struct *vars)
+int	map_check(t_struct *vars)
 {
-	int error;
+	int	error;
 
 	error = is_square(vars);
 	if (error != 0)

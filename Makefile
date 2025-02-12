@@ -2,7 +2,7 @@ CC			=	cc -I$(INCLUDE) -g3 #-Wall -Wextra -Werror
 
 NAME		=	so_long
 INCLUDE		=	include
-SRCS		=	so_long.c map_handle.c ft_split.c
+SRCS		=	so_long.c map_handle.c map_handle_2.c ft_split.c
 OBJS		=	$(SRCS:%.c=$(OBJDIR)%.o)
 MINILIBX	=	minilibx-linux
 OBJDIR		=	objs/
