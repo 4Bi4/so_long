@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/15 18:54:07 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:13:59 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	close_window(t_struct *vars)
 {
-	int	i;
-
-	i = 0;
 	clean_mtrx(vars->map);
 	clean_mtrx(vars->mapcpy);
 	clean_imgs(vars);
