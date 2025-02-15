@@ -5,6 +5,7 @@ INCLUDE		=	include
 SRCS		=	so_long.c map_handle.c map_handle_2.c ft_split.c utils.c
 OBJS		=	$(SRCS:%.c=$(OBJDIR)%.o)
 MINILIBX	=	minilibx-linux
+PRINTF		=	printf
 OBJDIR		=	objs/
 
 AR			=	ar rcs
@@ -32,11 +33,13 @@ $(OBJDIR)%.o: %.c
 clean:
 			$(RM) $(OBJS)
 			rm -rf $(OBJDIR)
-			make -C  $(MINILIBX) clean
+			make -C	$(PRINTF) clean
+			make -C	$(MINILIBX) clean
 
 fclean:		clean
 			$(RM) $(NAME)
 			$(RM) $(EXEC)
+			make -C $(PRINTF) clean
 			make -C $(MINILIBX) clean
 
 re:			fclean all
