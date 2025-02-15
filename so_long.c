@@ -6,31 +6,37 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/12 21:43:54 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:54:07 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./include/so_long.h"
 
 int	close_window(t_struct *vars)
 {
 	int	i;
 
 	i = 0;
-	while (vars->map[i])
+	clean_mtrx(vars->map);
+	clean_mtrx(vars->mapcpy);
+	clean_imgs(vars);
+	if (vars->win)
 	{
-		free(vars->map[i]);
-		i++;
+		mlx_destroy_window(vars->mlx, vars->win);
+		vars->win = NULL;
 	}
-	free(vars->map);
+	if (vars->mlx)
+	{
+		mlx_destroy_display(vars->mlx);
+		free(vars->mlx);
+		vars->mlx = NULL;
+	}
 	exit(0);
 }
 
 int	init_process(t_struct *vars)
 {
 	vars->mlx = mlx_init(&vars);
-	vars->win = mlx_new_window(vars->mlx, vars->map_x, vars->map_y,
-			"Minecraft 2 a todo gas");
 	vars->pos_x = 0;
 	vars->pos_y = 0;
 	vars->exit_x = 0;
@@ -38,19 +44,22 @@ int	init_process(t_struct *vars)
 	vars->resolution = SIZE;
 	vars->count = 0;
 	vars->points = 0;
-	vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1R.xpm",
-			&vars->resolution, &vars->resolution);
-	vars->floor = mlx_xpm_file_to_image(vars->mlx, "sprites/floor.xpm",
-			&vars->resolution, &vars->resolution);
-	vars->exit_no = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-no.xpm",
-			&vars->resolution, &vars->resolution);
-	vars->exit_yes = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-yes.xpm",
-			&vars->resolution, &vars->resolution);
-	vars->wall = mlx_xpm_file_to_image(vars->mlx, "sprites/wall.xpm",
-			&vars->resolution, &vars->resolution);
-	vars->coin = mlx_xpm_file_to_image(vars->mlx, "sprites/coin.xpm",
-			&vars->resolution, &vars->resolution);
+	vars->player_r = NULL;
+	vars->player_l = NULL;
+	vars->floor = NULL;
+	vars->exit_no = NULL;
+	vars->exit_yes = NULL;
+	vars->wall = NULL;
+	vars->coin = NULL;
+	if (load_img(vars) < 0)
+	{
+		write(2, "[ERROR]: Can't load texture.\n", 30);
+		close_window(vars);
+	}
+	vars->player = vars->player_r;
 	vars->exit = false;
+	vars->win = mlx_new_window(vars->mlx, vars->map_x, vars->map_y,
+			"Minecraft 2 a todo gas");
 	return (0);
 }
 
@@ -78,36 +87,35 @@ void	move_player(t_struct *vars, int incr_y, int incr_x)
 	vars->pos_y += incr_y;
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->pos_x,
 		vars->pos_y);
-	printf("counter: %zu\n", ++vars->count);
+	ft_printf("counter: %d\n", (int)++vars->count);
 }
 
-void	key_hook(int keycode, t_struct *vars)
+int	key_hook(int keycode, t_struct *vars)
 {
 	if (vars->points == 0 && vars->exit == false)
 	{
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->exit_yes,
 			vars->exit_x, vars->exit_y);
-		printf("THE GATES HAVE BEEN OPENED!🟣\n");
+		ft_printf("THE GATES HAVE BEEN OPENED!🟣\n");
 		vars->exit = true;
 	}
 	if (keycode == XK_Escape)
 		close_window(vars);
-	if (keycode == XK_d)
+	if (keycode == XK_d || keycode == XK_Right)
 	{
-		vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1R.xpm",
-				&vars->resolution, &vars->resolution);
+		vars->player = vars->player_r;
 		move_player(vars, 0, SIZE);
 	}
-	if (keycode == XK_a)
+	if (keycode == XK_a || keycode == XK_Left)
 	{
-		vars->player = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1L.xpm",
-				&vars->resolution, &vars->resolution);
+		vars->player = vars->player_l;
 		move_player(vars, 0, -SIZE);
 	}
-	if (keycode == XK_s)
+	if (keycode == XK_s || keycode == XK_Down)
 		move_player(vars, SIZE, 0);
-	if (keycode == XK_w)
+	if (keycode == XK_w || keycode == XK_Up)
 		move_player(vars, -SIZE, 0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -117,17 +125,19 @@ int	main(int argc, char **argv)
 	int			error;
 
 	if (argc != 2)
-		return (printf("¡[ERROR]! Enter the map route as an argument\n"));
+		return (write(2, "¡[ERROR]! Enter the map route as an argument\n", 47),
+			-1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd <= 0)
-		return (printf("¡[ERROR]! Failed to load map :(\n"));
+		return (write(2, "¡[ERROR]! Failed to load map :(\n", 34), -1);
 	map_meter(fd, &vars);
-	close(fd);
 	init_process(&vars);
+	close(fd);
 	error = map_check(&vars);
 	if (error != 0)
 		close_window(&vars);
 	mlx_hook(vars.win, 17, 0, close_window, NULL);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
+	return (0);
 }

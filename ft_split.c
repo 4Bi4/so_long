@@ -6,11 +6,11 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 13:52:13 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/12 15:34:15 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:12:46 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./include/so_long.h"
 
 size_t	ft_strlen(const char *str)
 {

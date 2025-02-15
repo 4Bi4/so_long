@@ -6,11 +6,11 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/12 21:22:03 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:56:11 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./include/so_long.h"
 
 void	map_meter(int fd, t_struct *vars)
 {
@@ -25,6 +25,7 @@ void	map_meter(int fd, t_struct *vars)
 	f = read(fd, buff, BUFFER);
 	buff[f] = '\0';
 	vars->map = ft_split(buff, '\n');
+	vars->mapcpy = ft_split(buff, '\n');
 	free(buff);
 	while (vars->map[j])
 		j++;
@@ -80,26 +81,17 @@ int	wall_check(t_struct *vars)
 
 int	map_check(t_struct *vars)
 {
-	int	error;
-
-	error = is_square(vars);
-	if (error != 0)
-	{
-		printf("¡[ERROR]! Map is not Rectangular\n");
-		return (-1);
-	}
-	error = wall_check(vars);
-	if (error != 0)
-	{
-		printf("¡[ERROR]! Map is not Surrounded by walls\n");
-		return (-1);
-	}
-	error = read_map(vars);
-	if (error != 0)
-	{
-		printf("¡[ERROR DE LA MUERTE]! Wrong number of Player/s or Exit/s💀💀\n");
-		return (-1);
-	}
-	printf("Map is good 👍\n🕒Loading...\n");
+	if (is_square(vars))
+		return (write(2, "¡[ERROR]! Map is not Rectangular\n", 35), -1);
+	if (wall_check(vars))
+		return (write(2, "¡[ERROR]! Map is not Surrounded by walls\n", 43), -1);
+	if (read_map(vars))
+		return (write(2, "¡[ERROR]! Wrong number of Player/s or Exit/s💀💀\n",
+				55), -1);
+	if (ff(vars))
+		return (write(2,
+				"¡[ERROR]! No valid path to coins or exit was found.\n", 54),
+			-1);
+	ft_printf("Map is good 👍\n🕒Loading...\n");
 	return (0);
 }

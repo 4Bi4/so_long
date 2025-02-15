@@ -1,8 +1,8 @@
-CC			=	cc -I$(INCLUDE) -g3 #-Wall -Wextra -Werror
+CC			=	cc -I$(INCLUDE) -g3 -Wall -Wextra -Werror #-fsanitize=address 
 
 NAME		=	so_long
 INCLUDE		=	include
-SRCS		=	so_long.c map_handle.c map_handle_2.c ft_split.c
+SRCS		=	so_long.c map_handle.c map_handle_2.c ft_split.c utils.c
 OBJS		=	$(SRCS:%.c=$(OBJDIR)%.o)
 MINILIBX	=	minilibx-linux
 OBJDIR		=	objs/
@@ -21,8 +21,9 @@ mlx:
 			make -C $(MINILIBX)
 
 $(NAME):    $(OBJS)
+			make -C printf
 			make -C $(MINILIBX)
-			$(CC) $(OBJS) -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
+			$(CC) $(OBJS) -Lprintf -lftprintf -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
 
 $(OBJDIR)%.o: %.c
 			mkdir -p $(OBJDIR)
