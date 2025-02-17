@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 05:56:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/17 15:27:05 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:05:00 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	map_meter(int fd, t_struct *vars)
 	j = 0;
 	buff = (char *)malloc(sizeof(char) * (BUFFER + 1));
 	if (!buff)
-	return (-1);
+		return (-1);
 	f = read(fd, buff, BUFFER);
 	buff[f] = '\0';
 	vars->map = ft_split(buff, '\n');

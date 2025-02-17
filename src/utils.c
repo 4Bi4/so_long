@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:11:03 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/17 15:58:20 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:04:32 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	clean_mtrx(char **mtrx)
 {
+	int	i;
+
 	if (mtrx)
 	{
-		int	i;
-
 		i = 0;
 		while (mtrx[i])
 		{
