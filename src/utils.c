@@ -6,23 +6,26 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:11:03 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/15 18:16:53 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:58:20 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/so_long.h"
+#include "../include/so_long.h"
 
 void	clean_mtrx(char **mtrx)
 {
-	int	i;
-
-	i = 0;
-	while (mtrx[i])
+	if (mtrx)
 	{
-		free(mtrx[i]);
-		i++;
+		int	i;
+
+		i = 0;
+		while (mtrx[i])
+		{
+			free(mtrx[i]);
+			i++;
+		}
+		free(mtrx);
 	}
-	free(mtrx);
 }
 
 void	clean_imgs(t_struct *vars)
@@ -45,15 +48,15 @@ void	clean_imgs(t_struct *vars)
 
 int	load_img(t_struct *vars)
 {
-	vars->player_r = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1R.xpm",
+	vars->player_r = mlx_xpm_file_to_image(vars->mlx, "./sprites/player-1R.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->player_r)
 		return (-1);
-	vars->player_l = mlx_xpm_file_to_image(vars->mlx, "sprites/player-1L.xpm",
+	vars->player_l = mlx_xpm_file_to_image(vars->mlx, "./sprites/player-1L.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->player_l)
 		return (-1);
-	vars->floor = mlx_xpm_file_to_image(vars->mlx, "sprites/floor.xpm",
+	vars->floor = mlx_xpm_file_to_image(vars->mlx, "./sprites/floor.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->floor)
 		return (-1);
@@ -64,19 +67,19 @@ int	load_img(t_struct *vars)
 
 int	load_img2(t_struct *vars)
 {
-	vars->exit_no = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-no.xpm",
+	vars->exit_no = mlx_xpm_file_to_image(vars->mlx, "./sprites/exit-no.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->exit_no)
 		return (-1);
-	vars->exit_yes = mlx_xpm_file_to_image(vars->mlx, "sprites/exit-yes.xpm",
+	vars->exit_yes = mlx_xpm_file_to_image(vars->mlx, "./sprites/exit-yes.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->exit_yes)
 		return (-1);
-	vars->wall = mlx_xpm_file_to_image(vars->mlx, "sprites/wall.xpm",
+	vars->wall = mlx_xpm_file_to_image(vars->mlx, "./sprites/wall.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->wall)
 		return (-1);
-	vars->coin = mlx_xpm_file_to_image(vars->mlx, "sprites/coin.xpm",
+	vars->coin = mlx_xpm_file_to_image(vars->mlx, "./sprites/coin.xpm",
 			&vars->resolution, &vars->resolution);
 	if (!vars->coin)
 		return (-1);

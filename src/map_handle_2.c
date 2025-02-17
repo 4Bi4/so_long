@@ -6,11 +6,11 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:50:19 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/15 18:20:16 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:27:01 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/so_long.h"
+#include "../include/so_long.h"
 
 int	flood_fill(t_struct *vars, int y, int x)
 {

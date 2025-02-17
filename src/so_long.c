@@ -6,11 +6,11 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/15 21:13:59 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:28:51 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/so_long.h"
+#include "../include/so_long.h"
 
 int	close_window(t_struct *vars)
 {
@@ -127,7 +127,10 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd <= 0)
 		return (write(2, "¡[ERROR]! Failed to load map :(\n", 34), -1);
-	map_meter(fd, &vars);
+	error = map_meter(fd, &vars);
+	if (error != 0)
+		return (write(2, "¡[ERROR]! Malloc somehow failed \n", 34),
+			close_window(&vars), -1);
 	init_process(&vars);
 	close(fd);
 	error = map_check(&vars);

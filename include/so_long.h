@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/15 18:56:50 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:06:49 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int			read_map(t_struct *vars);
 int			load_img(t_struct *vars);
 int			load_img2(t_struct *vars);
 int			map_check(t_struct *vars);
+int			map_meter(int fd, t_struct *vars);
 
 void		clean_mtrx(char **mtrx);
 void		clean_imgs(t_struct *vars);
-void		map_meter(int fd, t_struct *vars);
 
 #endif
