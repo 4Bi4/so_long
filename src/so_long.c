@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 01:04:46 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/17 15:28:51 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:27:27 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 int	close_window(t_struct *vars)
 {
-	clean_mtrx(vars->map);
-	clean_mtrx(vars->mapcpy);
-	clean_imgs(vars);
-	if (vars->win)
+	if (vars != NULL)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		vars->win = NULL;
-	}
-	if (vars->mlx)
-	{
-		mlx_destroy_display(vars->mlx);
-		free(vars->mlx);
-		vars->mlx = NULL;
+		if (vars->map)
+			clean_mtrx(vars->map);
+		if (vars->mapcpy)
+			clean_mtrx(vars->mapcpy);
+		clean_imgs(vars);
+		if (vars->win)
+		{
+			mlx_destroy_window(vars->mlx, vars->win);
+			vars->win = NULL;
+		}
+		if (vars->mlx)
+		{
+			mlx_destroy_display(vars->mlx);
+			free(vars->mlx);
+			vars->mlx = NULL;
+		}
+		vars = NULL;
 	}
 	exit(0);
 }
@@ -127,6 +133,8 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd <= 0)
 		return (write(2, "¡[ERROR]! Failed to load map :(\n", 34), -1);
+	vars.map = NULL;
+	vars.mapcpy = NULL;
 	error = map_meter(fd, &vars);
 	if (error != 0)
 		return (write(2, "¡[ERROR]! Malloc somehow failed \n", 34),

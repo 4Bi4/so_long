@@ -1,4 +1,4 @@
-CC			=	cc -I$(INCLUDE) -g3 -Wall -Wextra -Werror #-fsanitize=address 
+CC			=	cc -I$(INCLUDE) -Wall -Wextra -Werror #-g3 -fsanitize=address 
 
 NAME		=	so_long
 INCLUDE		=	include
@@ -39,8 +39,6 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 			$(RM) $(EXEC)
-			make -C $(PRINTF) clean
-			make -C $(MINILIBX) clean
 
 re:			fclean all
 

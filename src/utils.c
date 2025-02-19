@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:11:03 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/17 16:04:32 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:23:19 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ void	clean_imgs(t_struct *vars)
 		mlx_destroy_image(vars->mlx, vars->wall);
 	if (vars->coin)
 		mlx_destroy_image(vars->mlx, vars->coin);
+	vars->player_r = NULL;
+	vars->player_l = NULL;
+	vars->floor = NULL;
+	vars->exit_no = NULL;
+	vars->exit_yes = NULL;
+	vars->wall = NULL;
+	vars->coin = NULL;
 }
 
 int	load_img(t_struct *vars)
