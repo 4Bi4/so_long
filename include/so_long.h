@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 22:27:20 by labia-fe          #+#    #+#             */
-/*   Updated: 2025/02/17 15:06:49 by labia-fe         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:09:04 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define SO_LONG_H
 
 # include <X11/keysym.h>
+# include <stdbool.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include <fcntl.h>
 # include <mlx.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 # include "../printf/ft_printf.h"
 
