@@ -16,7 +16,7 @@ RM			=	rm -f
 TEST		= test.c
 EXEC		= test
 
-all:		lib mlx $(NAME)
+all:		$(NAME)
 
 mlx:
 			make -C $(MINILIBX)
